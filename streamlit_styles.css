@@ -1,0 +1,442 @@
+/* 🕹️ RetroBrain Streamlit Dynamic Styling */
+/* Smooth morphing from 1980s → 2000s → 2020s */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global CSS Variables (dynamically updated by JavaScript/CSS) */
+:root {
+    --era-slider-value: 0.5;
+    --primary-color: #5b9bd5;
+    --bg-color: #1e1e1e;
+    --text-color: #d3d3d3;
+    --border-radius: 4px;
+    --shadow-blur: 10px;
+    --shadow-spread: 0px;
+    --scanline-opacity: 0.5;
+    --glass-opacity: 0;
+    --backdrop-blur: 0px;
+    --image-rendering: auto;
+    --base-font-size: 16px;
+    --border-width: 2px;
+    --font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Base styling with transitions */
+* {
+    transition: all 0.5s ease-in-out !important;
+}
+
+/* Main container */
+.main .block-container {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: var(--base-font-size);
+    padding: 2rem;
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    box-shadow: 
+        0 0 var(--shadow-blur) var(--primary-color),
+        0 0 calc(var(--shadow-blur) * 2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.3)),
+        0 0 calc(var(--shadow-blur) * 3) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1));
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(var(--backdrop-blur));
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, calc(1 - var(--glass-opacity) * 0.5)),
+        rgba(30, 30, 30, calc(1 - var(--glass-opacity) * 0.5))
+    );
+}
+
+/* CRT Scanlines (fade out as slider moves) */
+.main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.15)),
+        rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.15)) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: var(--scanline-opacity);
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Header */
+.retrobrain-header {
+    text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: rgba(0, 0, 0, calc(0.5 - var(--glass-opacity) * 0.3));
+    box-shadow: 
+        0 0 var(--shadow-blur) var(--primary-color),
+        inset 0 0 calc(var(--shadow-blur) * 0.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2));
+    position: relative;
+    backdrop-filter: blur(var(--backdrop-blur));
+    overflow: hidden;
+}
+
+.retrobrain-header h1 {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 1.5);
+    color: var(--primary-color);
+    text-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color),
+        0 0 var(--shadow-blur) var(--primary-color);
+    margin: 0;
+    padding: 1rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 0.9);
+    color: var(--text-color);
+    margin-top: 1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.era-indicator {
+    margin-top: 1rem;
+    font-family: var(--font-family);
+    font-size: var(--base-font-size);
+    color: var(--primary-color);
+}
+
+.era-value {
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Era labels */
+.era-label {
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 0.8);
+    color: var(--text-color);
+    padding: 0.5rem;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Era Panels */
+.era-panel {
+    padding: 1.5rem;
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: rgba(0, 0, 0, calc(0.3 - var(--glass-opacity) * 0.2));
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color),
+        inset 0 0 calc(var(--shadow-blur) * 0.3) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1));
+    backdrop-filter: blur(var(--backdrop-blur));
+    margin-bottom: 1rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.era-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 calc(var(--shadow-blur) * 0.3) calc(var(--shadow-blur) * 0.5) var(--primary-color),
+        0 0 calc(var(--shadow-blur) * 1.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2));
+}
+
+.era-panel h3 {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 1.2);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color);
+}
+
+/* Demo Cards */
+.demo-card {
+    padding: 1.5rem;
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: rgba(0, 0, 0, calc(0.4 - var(--glass-opacity) * 0.2));
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color),
+        inset 0 0 calc(var(--shadow-blur) * 0.2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1));
+    backdrop-filter: blur(var(--backdrop-blur));
+    margin-bottom: 1rem;
+    min-height: 120px;
+}
+
+.demo-card h4 {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 1.1);
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color);
+}
+
+.demo-card p {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 0.9);
+    color: var(--text-color);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Buttons */
+.stButton > button {
+    font-family: var(--font-family) !important;
+    font-size: var(--base-font-size) !important;
+    background: rgba(0, 0, 0, calc(0.5 - var(--glass-opacity) * 0.3)) !important;
+    color: var(--primary-color) !important;
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    padding: 0.75rem 1.5rem !important;
+    cursor: pointer !important;
+    transition: all 0.5s ease-in-out !important;
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color),
+        inset 0 0 calc(var(--shadow-blur) * 0.2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1)) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background: rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2)) !important;
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.8) var(--primary-color),
+        0 0 calc(var(--shadow-blur) * 1.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.3)) !important;
+    transform: translateY(-2px) scale(1.02);
+}
+
+.stButton > button[kind="primary"] {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 255, 0, calc(0.3 - var(--glass-opacity) * 0.2)),
+        rgba(0, 255, 255, calc(0.2 - var(--glass-opacity) * 0.1))
+    ) !important;
+    border-width: calc(var(--border-width) * 1.5) !important;
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.6) var(--primary-color),
+        0 0 calc(var(--shadow-blur) * 1.2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2)) !important;
+}
+
+/* Text inputs */
+.stTextArea textarea,
+.stTextInput input {
+    font-family: var(--font-family) !important;
+    font-size: var(--base-font-size) !important;
+    background: rgba(0, 0, 0, calc(0.6 - var(--glass-opacity) * 0.3)) !important;
+    color: var(--text-color) !important;
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    padding: 0.75rem !important;
+    box-shadow: 
+        inset 0 0 calc(var(--shadow-blur) * 0.2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1)),
+        0 0 calc(var(--shadow-blur) * 0.2) var(--primary-color) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+    transition: all 0.5s ease-in-out !important;
+}
+
+.stTextArea textarea:focus,
+.stTextInput input:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 
+        inset 0 0 calc(var(--shadow-blur) * 0.3) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2)),
+        0 0 calc(var(--shadow-blur) * 0.6) var(--primary-color) !important;
+    outline: none !important;
+}
+
+/* Slider */
+.stSlider {
+    margin: 1rem 0;
+}
+
+.stSlider > div > div {
+    background: rgba(0, 0, 0, calc(0.5 - var(--glass-opacity) * 0.3)) !important;
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.2) var(--primary-color),
+        inset 0 0 calc(var(--shadow-blur) * 0.1) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1)) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+}
+
+.stSlider > div > div > div {
+    background: var(--primary-color) !important;
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color) !important;
+}
+
+.stSlider > div > div > div > div {
+    background: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+    box-shadow: 
+        0 0 calc(var(--shadow-blur) * 0.8) var(--primary-color),
+        0 0 calc(var(--shadow-blur) * 1.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.3)) !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: rgba(0, 0, 0, calc(0.8 - var(--glass-opacity) * 0.4)) !important;
+    border-right: var(--border-width) solid var(--primary-color) !important;
+    box-shadow: 
+        calc(var(--shadow-blur) * 0.5) 0 calc(var(--shadow-blur) * 0.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2)),
+        inset calc(var(--shadow-blur) * 0.2) 0 calc(var(--shadow-blur) * 0.2) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1)) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+    color: var(--text-color) !important;
+    font-family: var(--font-family) !important;
+}
+
+/* Metrics */
+[data-testid="stMetricValue"] {
+    font-family: var(--font-family) !important;
+    color: var(--primary-color) !important;
+    text-shadow: 0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color) !important;
+}
+
+[data-testid="stMetricLabel"] {
+    font-family: var(--font-family) !important;
+    color: var(--text-color) !important;
+}
+
+/* Progress bars */
+.stProgress > div > div > div {
+    background: var(--primary-color) !important;
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color) !important;
+}
+
+/* Dataframes */
+.stDataFrame {
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color) !important;
+}
+
+/* Footer */
+.retrobrain-footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: var(--border-width) solid var(--primary-color);
+    background: rgba(0, 0, 0, calc(0.4 - var(--glass-opacity) * 0.2));
+    box-shadow: 
+        0 calc(var(--shadow-blur) * -0.3) calc(var(--shadow-blur) * 0.5) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.2)),
+        inset 0 0 calc(var(--shadow-blur) * 0.3) rgba(0, 255, 0, calc(var(--scanline-opacity) * 0.1));
+    backdrop-filter: blur(var(--backdrop-blur));
+}
+
+.retrobrain-footer p {
+    font-family: var(--font-family);
+    font-size: calc(var(--base-font-size) * 0.9);
+    color: var(--text-color);
+    margin: 0.5rem 0;
+    text-shadow: 0 0 calc(var(--shadow-blur) * 0.2) var(--primary-color);
+    opacity: 0.9;
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-family: var(--font-family) !important;
+    color: var(--primary-color) !important;
+    text-shadow: 0 0 calc(var(--shadow-blur) * 0.5) var(--primary-color) !important;
+}
+
+/* Markdown text */
+.stMarkdown {
+    font-family: var(--font-family) !important;
+    color: var(--text-color) !important;
+}
+
+/* Alerts */
+.stAlert {
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    background: rgba(0, 0, 0, calc(0.5 - var(--glass-opacity) * 0.3)) !important;
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+}
+
+/* Expander */
+.stExpander {
+    border: var(--border-width) solid var(--primary-color) !important;
+    border-radius: var(--border-radius) !important;
+    background: rgba(0, 0, 0, calc(0.4 - var(--glass-opacity) * 0.2)) !important;
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.2) var(--primary-color) !important;
+    backdrop-filter: blur(var(--backdrop-blur)) !important;
+}
+
+/* Image rendering */
+img {
+    image-rendering: var(--image-rendering) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border: 2px solid var(--bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.3) var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+    box-shadow: 0 0 calc(var(--shadow-blur) * 0.6) var(--primary-color);
+}
+
+/* Pixelated effect at low slider values */
+@supports (image-rendering: pixelated) {
+    .main .block-container {
+        image-rendering: var(--image-rendering);
+    }
+}
+
+/* Smooth font interpolation */
+.retrobrain-header h1,
+.era-panel h3,
+.demo-card h4 {
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism effect at high slider values */
+@media (min-width: 768px) {
+    .main .block-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, calc(var(--glass-opacity) * 0.05));
+        backdrop-filter: blur(var(--backdrop-blur));
+        pointer-events: none;
+        border-radius: var(--border-radius);
+        opacity: var(--glass-opacity);
+    }
+}
+

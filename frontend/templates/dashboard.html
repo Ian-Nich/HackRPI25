@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroBrain Dashboard</title>
+    <link rel="stylesheet" href="/static/css/retro.css">
+</head>
+<body>
+    <!-- Floating Pixel Canvas -->
+    <canvas id="pixel-canvas"></canvas>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">🕹️ RETROBRAIN DASHBOARD</div>
+            <div class="terminal-controls">
+                <div class="control-btn close"></div>
+                <div class="control-btn minimize"></div>
+                <div class="control-btn maximize"></div>
+            </div>
+        </div>
+        
+        <!-- Main Title -->
+        <div style="text-align: center; margin: 20px 0;">
+            <h1 class="glow-green" style="font-family: 'Press Start 2P', cursive; font-size: 20px;">
+                ML PREDICTION COMPARISON ACROSS ERAS
+            </h1>
+            <p style="font-size: 18px; color: #00ffff; text-shadow: 0 0 10px #00ffff; margin-top: 15px; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                RetroBrain compares how 1980s, 2000s, and modern AI models understand the same data, revealing the evolution of machine intelligence across time.
+            </p>
+        </div>
+        
+        <!-- Time Slider -->
+        <div class="time-slider-container">
+            <h2 class="glow-cyan" style="font-family: 'Press Start 2P', cursive; font-size: 14px; margin-bottom: 15px;">
+                >>> TIME SLIDER: MORPH BETWEEN ERAS <<<
+            </h2>
+            <p style="text-align: center; color: var(--text-color); margin-bottom: 20px; font-size: 16px;">
+                Move slider to transform entire UI: 0 = 1980s Retro → 50 = 2000s Transition → 100 = 2020s Modern
+            </p>
+            <input type="range" id="time-slider" class="time-slider" min="0" max="100" value="50" step="1">
+            <div class="time-labels">
+                <span>1980s<br/>RETRO</span>
+                <span id="current-era">2000s<br/>TRANSITION</span>
+                <span>2020s<br/>MODERN</span>
+            </div>
+        </div>
+        
+        <!-- Prediction Form -->
+        <div style="margin: 30px 0; padding: 20px; border: 2px solid #00ff00; background: rgba(0, 255, 0, 0.05);">
+            <h2 class="glow-green" style="font-family: 'Press Start 2P', cursive; font-size: 14px; margin-bottom: 15px;">
+                >>> ENTER TEXT TO PREDICT <<<
+            </h2>
+            <form id="predict-form">
+                <input type="text" id="text-input" class="retro-input" 
+                       placeholder="Type text for sentiment analysis..." 
+                       style="margin-bottom: 15px;">
+                <button type="submit" class="retro-btn" style="width: 100%;">PREDICT</button>
+            </form>
+            <div id="loading" style="display: none; margin-top: 20px; color: #00ff00;">
+                <span class="loading"></span> Processing...
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- 1980s Era Panel -->
+            <div class="era-panel era-1980s">
+                <div class="era-header">>>> ERA 1: 1980s <<<</div>
+                <div style="color: #00ff00; margin-bottom: 15px;">
+                    Models: Logistic Regression, Naive Bayes, Decision Tree
+                </div>
+                <div id="prediction-1980s" class="prediction-display">
+                    <div style="text-align: center; color: #00ffff; padding: 20px;">
+                        Enter text above and click PREDICT
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2000s Era Panel -->
+            <div class="era-panel era-2000s">
+                <div class="era-header">>>> ERA 2: 2000s <<<</div>
+                <div style="color: #00ffff; margin-bottom: 15px;">
+                    Models: Random Forest, SVM (Linear + RBF), PCA
+                </div>
+                <div id="prediction-2000s" class="prediction-display">
+                    <div style="text-align: center; color: #00ffff; padding: 20px;">
+                        Enter text above and click PREDICT
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2020s Era Panel -->
+            <div class="era-panel era-2020s">
+                <div class="era-header">>>> ERA 3: 2020s <<<</div>
+                <div style="color: #ff00ff; margin-bottom: 15px;">
+                    Models: Gemini API (LLM)
+                </div>
+                <div id="prediction-2020s" class="prediction-display">
+                    <div style="text-align: center; color: #00ffff; padding: 20px;">
+                        Enter text above and click PREDICT
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Explains AI Panel -->
+        <div style="margin: 30px 0; padding: 20px; border: 2px solid #ff00ff; background: rgba(255, 0, 255, 0.05);">
+            <h2 class="glow-magenta" style="font-family: 'Press Start 2P', cursive; font-size: 14px; margin-bottom: 15px;">
+                >>> AI EXPLAINS AI (GEMINI) <<<
+            </h2>
+            <div id="explanation" class="typed-text" style="min-height: 100px; padding: 15px; background: rgba(0, 0, 0, 0.5); border: 1px solid #ff00ff;">
+                Predictions from the 2020s model will include AI-generated explanations here...
+            </div>
+        </div>
+        
+        <!-- Confusion Matrix Visualizer -->
+        <div style="margin: 30px 0; padding: 20px; border: 2px solid #00ffff; background: rgba(0, 255, 255, 0.05);">
+            <h2 class="glow-cyan" style="font-family: 'Press Start 2P', cursive; font-size: 14px; margin-bottom: 15px;">
+                >>> CONFUSION MATRIX (EXAMPLE) <<<
+            </h2>
+            <div class="confusion-matrix">
+                <div class="confusion-cell high">TN: 450</div>
+                <div class="confusion-cell">FP: 30</div>
+                <div class="confusion-cell">FN: 20</div>
+                <div class="confusion-cell high">TP: 500</div>
+            </div>
+            <div style="margin-top: 15px; color: #00ffff; text-align: center;">
+                TN: True Negative | FP: False Positive | FN: False Negative | TP: True Positive
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div style="margin: 40px 0; text-align: center;">
+            <a href="/" style="color: #00ff00; text-decoration: none; font-size: 18px; text-shadow: 0 0 10px #00ff00;">
+                <<< BACK TO HOME
+            </a>
+        </div>
+    </div>
+    
+    <script src="/static/js/retro.js"></script>
+</body>
+</html>
+

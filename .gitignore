@@ -1,0 +1,43 @@
+# Model files and results (too large for Git)
+*.pkl
+*.model
+*.h5
+*.joblib
+models_*.pkl
+retrobrain/data/preprocessor.pkl
+retrobrain/results/models_*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Results and demo files (can be regenerated)
+results/
+demo_screenshots/
+
+# Environment files
+.env
+.env.local
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp

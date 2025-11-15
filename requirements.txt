@@ -1,0 +1,31 @@
+# 🕹️ RetroBrain Requirements
+# HackRPI 2025 Project Dependencies
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+jinja2>=3.1.0
+python-multipart>=0.0.6
+
+# Machine Learning - Core
+scikit-learn>=1.3.0
+numpy>=1.24.0
+
+# Data Processing
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+pillow>=10.0.0
+
+# Gemini API (2020s models)
+google-generativeai>=0.3.0
+
+# Optional: For better performance
+# torch>=2.0.0  # If using PyTorch models
+# tensorflow>=2.13.0  # If using TensorFlow models
+
+# Development
+pytest>=7.4.0  # For testing
+black>=23.0.0  # Code formatting (optional)
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕹️ RetroBrain: Reconstructing Modern Knowledge Using Outdated Models</title>
+    <link rel="stylesheet" href="/static/css/retro.css">
+</head>
+<body>
+    <!-- Floating Pixel Canvas -->
+    <canvas id="pixel-canvas"></canvas>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">🕹️ RETROBRAIN COMPUTER TERMINAL</div>
+            <div class="terminal-controls">
+                <div class="control-btn close"></div>
+                <div class="control-btn minimize"></div>
+                <div class="control-btn maximize"></div>
+            </div>
+        </div>
+        
+        <!-- Boot Sequence -->
+        <div id="boot-sequence" class="typed-text"></div>
+        
+        <!-- Main Title -->
+        <div style="text-align: center; margin: 40px 0;">
+            <h1 id="retrobrain-title" class="glow-green" style="font-family: 'Press Start 2P', cursive; font-size: 24px; margin-bottom: 20px;">
+                RETROBRAIN: RECONSTRUCTING MODERN KNOWLEDGE USING OUTDATED MODELS
+            </h1>
+            <p style="font-size: 20px; color: #00ffff; text-shadow: 0 0 10px #00ffff; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                RetroBrain compares how 1980s, 2000s, and modern AI models understand the same data, revealing the evolution of machine intelligence across time.
+            </p>
+        </div>
+        
+        <!-- Time Slider -->
+        <div class="time-slider-container" style="margin: 40px 0;">
+            <h2 class="glow-cyan" style="font-family: var(--font-family); font-size: var(--font-size); margin-bottom: 15px; text-align: center;">
+                >>> TIME SLIDER: MORPH BETWEEN ERAS <<<
+            </h2>
+            <p style="text-align: center; color: var(--text-color); margin-bottom: 20px; font-size: calc(var(--font-size) * 0.9);">
+                Move slider to transform entire UI: 0 = 1980s Retro → 50 = 2000s Transition → 100 = 2020s Modern
+            </p>
+            <input type="range" id="time-slider" class="time-slider" min="0" max="100" value="50" step="1">
+            <div class="time-labels">
+                <span>1980s<br/>RETRO</span>
+                <span id="current-era">2000s<br/>TRANSITION</span>
+                <span>2020s<br/>MODERN</span>
+            </div>
+        </div>
+        
+        <!-- Quick Start -->
+        <div style="margin: 40px 0; padding: 20px; border: var(--border-width) solid var(--primary-color); border-radius: var(--border-radius); background: rgba(0, 0, 0, calc(0.5 - var(--backdrop-blur) / 100 * 0.3)); backdrop-filter: blur(var(--backdrop-blur));">
+            <h2 class="glow-cyan" style="font-family: var(--font-family); font-size: calc(var(--font-size) * 1.1); margin-bottom: 20px; text-align: center;">
+                >>> QUICK START <<<
+            </h2>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <button id="train-btn" class="retro-btn">TRAIN MODELS</button>
+                <button onclick="window.location.href='/dashboard'" class="retro-btn">GO TO DASHBOARD</button>
+                <button id="load-results-btn" class="retro-btn">LOAD RESULTS</button>
+            </div>
+            <div id="loading" style="display: none; margin-top: 20px; color: #00ff00;">
+                <span class="loading"></span> Processing...
+            </div>
+        </div>
+        
+        <!-- About Section -->
+        <div style="margin: 40px 0;">
+            <h2 class="glow-green" style="font-family: 'Press Start 2P', cursive; font-size: 16px; margin-bottom: 20px;">
+                >>> ABOUT <<<
+            </h2>
+            <div class="typed-text" style="line-height: 1.8;">
+                RetroBrain compares machine learning models across three eras:
+
+                ERA 1 (1980s): Logistic Regression, Naive Bayes, Decision Tree, K-means
+                ERA 2 (2000s): Random Forest, SVM (Linear + RBF), PCA
+                ERA 3 (2020s): Gemini API (Large Language Models)
+
+                Explore how ML evolved from statistical methods to modern AI!
+            </div>
+        </div>
+        
+        <!-- Leaderboard -->
+        <div id="leaderboard-section" style="margin: 40px 0;">
+            <div class="leaderboard">
+                <div class="leaderboard-header">>>> LEADERBOARD <<<</div>
+                <div id="leaderboard">
+                    <div style="text-align: center; color: #00ffff; padding: 20px;">
+                        Click "LOAD RESULTS" to see model rankings
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div style="margin: 40px 0; text-align: center;">
+            <a href="/dashboard" style="color: #00ff00; text-decoration: none; font-size: 20px; text-shadow: 0 0 10px #00ff00;">
+                >>> ENTER DASHBOARD >>>
+            </a>
+        </div>
+    </div>
+    
+    <script src="/static/js/retro.js"></script>
+</body>
+</html>
+
