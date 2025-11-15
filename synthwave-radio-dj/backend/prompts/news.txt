@@ -1,0 +1,3 @@
+Good evening, this is your {{CITY}} Nightline News. 
+In today's neon-lit headlines, synthwave surfers rode glowing digital tides 
+while local arcades reported record high scores. Stay tuned for more updates.
