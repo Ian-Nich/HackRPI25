@@ -1,5 +1,5 @@
 // Constants & State
-const GRID_SIZE = 32;
+const GRID_SIZE = 64;
 const DISPLAY_SIZE = 512;
 const PIXEL = DISPLAY_SIZE / GRID_SIZE;
 
