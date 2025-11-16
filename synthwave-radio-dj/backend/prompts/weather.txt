@@ -1,0 +1,2 @@
+Tonight's forecast for {{CITY}} brings glowing pink clouds, warm neon breezes, 
+and a 40% chance of retro rainfall. Grab your shades — even at night.

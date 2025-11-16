@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Synthwave Radio DJ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="radio-container">
+        <h1 class="title">SYNTHWAVE RADIO DJ</h1>
+
+        <div class="radio">
+            <div class="screen">
+                <p id="status">Select a channel...</p>
+            </div>
+
+            <!-- Cassette Tape Animation -->
+            <div class="cassette-container" id="cassetteContainer">
+                <div class="cassette" id="cassette">
+                    <div class="cassette-window">
+                        <div class="cassette-reel left-reel"></div>
+                        <div class="cassette-reel right-reel"></div>
+                    </div>
+                    <div class="cassette-label">SYNTHWAVE</div>
+                </div>
+            </div>
+
+            <!-- Radio Wave Visualizer -->
+            <div class="wave-container" id="waveContainer">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+                <div class="wave wave3"></div>
+                <div class="wave wave4"></div>
+            </div>
+
+            <div class="controls">
+                <label>Channel:</label>
+                <select id="channel">
+                    <option value="news">Neon City News</option>
+                    <option value="weather">Synth Weather</option>
+                    <option value="crime">Retro Crime Report</option>
+                    <option value="music">DJ Commentary</option>
+                </select>
+
+                <button id="playBtn">Play</button>
+            </div>
+
+            <div class="transcript-panel">
+                <div class="transcript-header">DJ Transcript</div>
+                <p id="transcriptText">Awaiting transmission...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js?v=2"></script>
+</body>
+</html>
+
