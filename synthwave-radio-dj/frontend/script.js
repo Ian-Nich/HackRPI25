@@ -6,14 +6,14 @@ let audio = null;
 
 playBtn.addEventListener("click", async () => {
     status.textContent = "Generating broadcast...";
-    
+
     const selectedChannel = channel.value;
 
     try {
         const response = await fetch("http://127.0.0.1:5000/generate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ channel: selectedChannel })
+            body: JSON.stringify({ station: selectedChannel })
         });
 
         if (!response.ok) {
@@ -21,29 +21,23 @@ playBtn.addEventListener("click", async () => {
             return;
         }
 
-        // Receive audio as base64
-        const data = await response.json();
+const data = await response.json();
+console.log("Backend response:", data);
 
-        const audioBytes = atob(data.audio);
+if (!data.audio) {
+    status.textContent = "No audio returned.";
+    console.error(data);
+    return;
+}
 
-        const buffer = new Uint8Array(audioBytes.length);
-        for (let i = 0; i < audioBytes.length; i++) {
-            buffer[i] = audioBytes.charCodeAt(i);
-        }
+if (audio) {
+    audio.pause();
+}
 
-        const blob = new Blob([buffer], { type: "audio/mpeg" });
-        const url = URL.createObjectURL(blob);
+audio = new Audio("data:audio/mp3;base64," + data.audio);
+audio.play();
 
-        // Play audio
-        if (audio) {
-            audio.pause();
-            URL.revokeObjectURL(audio.src);
-        }
-
-        audio = new Audio(url);
-        audio.play();
-
-        status.textContent = "Now playing: " + selectedChannel.toUpperCase();
+status.textContent = "Now playing: " + selectedChannel.toUpperCase();
 
     } catch (err) {
         status.textContent = "Error connecting to server.";

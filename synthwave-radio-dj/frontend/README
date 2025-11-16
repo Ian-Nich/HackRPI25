@@ -1,0 +1,11 @@
+# Synthwave Radio DJ
+
+## Backend
+- `python app.py` runs Flask API on port 5000
+- Requires ElevenLabs API key in `ELEVENLABS_API_KEY`
+
+## Frontend
+- `python3 -m http.server 5500` runs frontend on localhost:5500
+
+## Prompts
+- `prompts/news.txt`, `prompts/weather.txt`, `prompts/crime.txt`, `prompts/music.txt`
