@@ -210,3 +210,36 @@ button:hover {
 .wave-container.playing .wave {
     animation-play-state: running;
 }
+
+/* Transcript Panel */
+.transcript-panel {
+    margin-top: 25px;
+    padding: 15px;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    background: rgba(0, 10, 25, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    text-align: left;
+    max-height: 180px;
+    overflow-y: auto;
+    backdrop-filter: blur(4px);
+}
+
+.transcript-header {
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 0, 255, 0.4);
+    padding-bottom: 6px;
+}
+
+#transcriptText {
+    font-family: 'Courier New', monospace;
+    color: #00ffff;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+    min-height: 80px;
+}

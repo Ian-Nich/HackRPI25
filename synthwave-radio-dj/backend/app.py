@@ -105,7 +105,7 @@ def generate():
             print(traceback.format_exc())
             return jsonify({"error": f"Audio generation error: {str(e)}"}), 500
 
-        return jsonify({"audio": audio_b64})
+        return jsonify({"audio": audio_b64, "script": script})
     
     except Exception as e:
         print(f"ERROR in generate endpoint: {str(e)}")
