@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+load_dotenv()
 from eleven_api import generate_voice_base64
 from gemini_api import generate_story as generate_story_gemini
 from dotenv import load_dotenv

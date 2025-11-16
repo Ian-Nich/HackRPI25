@@ -48,8 +48,25 @@ Make it sound like a late-night radio broadcast from a retro-futuristic world.""
         raise ValueError(f"Invalid station type: {station_type}")
     
     try:
-        # Use gemini-pro (the standard model name that works with most API versions)
-        model = genai.GenerativeModel('gemini-pro')
+        # Prefer Gemini 2.0 Flash models only (per latest API guidance)
+        model = None
+        model_errors = []
+        model_candidates = [
+            "models/gemini-2.0-flash",
+            "models/gemini-2.0-flash-001",
+        ]
+
+        for name in model_candidates:
+            try:
+                model = genai.GenerativeModel(name)
+                break
+            except Exception as err:
+                model_errors.append(f"{name}: {err}")
+
+        if model is None:
+            raise RuntimeError(
+                "Unable to initialize Gemini model. Tried: " + "; ".join(model_errors)
+            )
         
         # Create the full prompt with system context
         system_prompt = "You are a retro 80s synthwave radio DJ. Your style is atmospheric, mysterious, and cyberpunk-inspired. Keep responses concise and engaging (2-4 sentences)."
