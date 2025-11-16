@@ -1,14 +1,28 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from eleven_api import generate_voice_base64
-from gpt_api import generate_story
+from gemini_api import generate_story as generate_story_gemini
 from dotenv import load_dotenv
 import random
 import os
 import traceback
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from .env file (try multiple locations)
+base_dir = os.path.dirname(os.path.abspath(__file__))
+# Try backend/.env first, then parent directory .env
+env_paths = [
+    os.path.join(base_dir, ".env"),
+    os.path.join(os.path.dirname(base_dir), ".env")
+]
+for env_path in env_paths:
+    if os.path.exists(env_path):
+        load_dotenv(env_path)
+        print(f"✓ Loaded .env from: {env_path}")
+        break
+else:
+    # If no .env found, try default load_dotenv() behavior
+    load_dotenv()
+    print("⚠ No .env file found in expected locations, using default search")
 
 app = Flask(__name__)
 CORS(app)
@@ -42,29 +56,27 @@ def generate():
         if station not in station_map:
             return jsonify({"error": "Invalid station"}), 400
 
-        # Generate dynamic story using GPT, with fallback to static prompts
+        # Generate dynamic story using Gemini, with fallback to static prompts
         city = random.choice(["Neo-Tokyo", "Synth City", "Lazerport", "Chrome Ridge"])
         script = None
         
-        # Try GPT first
+        # Try Gemini first
         try:
-            script = generate_story(station, city)
-            print(f"✓ GPT generated script for {station} in {city}: {script[:100]}...")
+            script = generate_story_gemini(station, city)
+            print(f"✓ Gemini generated script for {station} in {city}: {script[:100]}...")
         except ValueError as e:
             # API key missing - use fallback
-            print(f"⚠ GPT API key missing, using static prompt: {str(e)}")
+            print(f"⚠ Gemini API key missing, using static prompt: {str(e)}")
+            print(f"   DEBUG: GEMINI_API_KEY from env = {os.getenv('GEMINI_API_KEY')[:20] if os.getenv('GEMINI_API_KEY') else 'NOT FOUND'}...")
         except RuntimeError as e:
-            # OpenAI API error (quota exceeded, etc.) - use fallback
+            # Gemini API error - use fallback
             error_msg = str(e)
-            if "quota" in error_msg.lower() or "429" in error_msg:
-                print(f"⚠ OpenAI quota exceeded, using static prompt fallback")
-            else:
-                print(f"⚠ OpenAI API error, using static prompt fallback: {error_msg}")
+            print(f"⚠ Gemini API error, using static prompt fallback: {error_msg}")
         except Exception as e:
-            # Other GPT errors - use fallback
-            print(f"⚠ GPT generation error, using static prompt fallback: {str(e)}")
+            # Other Gemini errors - use fallback
+            print(f"⚠ Gemini generation error, using static prompt fallback: {str(e)}")
         
-        # Fallback to static prompts if GPT failed
+        # Fallback to static prompts if Gemini failed
         if script is None:
             try:
                 template = load_prompt(station_map[station])
