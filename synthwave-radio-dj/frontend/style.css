@@ -58,3 +58,155 @@ body {
 button:hover {
     background: #ff55ff;
 }
+
+/* Cassette Tape Animation */
+.cassette-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.cassette-container.playing {
+    opacity: 1;
+}
+
+.cassette {
+    width: 200px;
+    height: 120px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 3px solid #ff00ff;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 15px #ff00ff, inset 0 0 10px rgba(255, 0, 255, 0.2);
+    padding: 10px;
+}
+
+.cassette-window {
+    width: 160px;
+    height: 60px;
+    background: #000;
+    border: 2px solid #00ffff;
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.cassette-reel {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #00ffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, #001a1a, #000);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.left-reel {
+    left: 20px;
+}
+
+.right-reel {
+    right: 20px;
+}
+
+.cassette-container.playing .left-reel {
+    animation: spin-reel 2s linear infinite;
+}
+
+.cassette-container.playing .right-reel {
+    animation: spin-reel 2s linear infinite reverse;
+}
+
+@keyframes spin-reel {
+    from {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.cassette-label {
+    text-align: center;
+    color: #00ffff;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffff;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+/* Radio Wave Visualizer */
+.wave-container {
+    margin: 20px 0;
+    height: 100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.wave-container.playing {
+    opacity: 1;
+}
+
+.wave {
+    position: absolute;
+    width: 20px;
+    height: 60px;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        #ff00ff 20%, 
+        #00ffff 50%, 
+        #ff00ff 80%, 
+        transparent 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 10px currentColor;
+    animation: wave-pulse 1.5s ease-in-out infinite;
+}
+
+.wave1 {
+    left: calc(50% - 60px);
+    animation-delay: 0s;
+    color: #ff00ff;
+}
+
+.wave2 {
+    left: calc(50% - 20px);
+    animation-delay: 0.2s;
+    color: #00ffff;
+}
+
+.wave3 {
+    left: calc(50% + 20px);
+    animation-delay: 0.4s;
+    color: #ff00ff;
+}
+
+.wave4 {
+    left: calc(50% + 60px);
+    animation-delay: 0.6s;
+    color: #00ffff;
+}
+
+@keyframes wave-pulse {
+    0%, 100% {
+        height: 20px;
+        opacity: 0.5;
+    }
+    50% {
+        height: 80px;
+        opacity: 1;
+    }
+}
+
+.wave-container.playing .wave {
+    animation-play-state: running;
+}
