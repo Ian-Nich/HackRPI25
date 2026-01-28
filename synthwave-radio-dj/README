@@ -3,6 +3,10 @@
 ## Backend
 - `python app.py` runs Flask API on port 5000
 - Requires ElevenLabs API key in `ELEVENLABS_API_KEY`
+- as well as running
+sudo apt update
+sudo apt install -y python3-venv python3-pip
+if using ubuntu to establish virtual environment
 
 ## Frontend
 - `python3 -m http.server 5500` runs frontend on localhost:5500
