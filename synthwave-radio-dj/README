@@ -1,4 +1,125 @@
-# Synthwave Radio DJ
+# 🌌 Synthwave Radio
+
+A retro-futuristic **24/7 synthwave radio** web app that streams curated synthwave, outrun, and chillwave tracks with a neon-soaked UI. Designed to feel like late‑night driving through a cyberpunk city.
+
+---
+
+## ✨ Features
+
+* 🎶 **Continuous radio stream** (no manual track skipping)
+* 🕶️ **Synthwave / neon aesthetic** (gradients, glow, scanlines)
+* ⏯️ Play / pause controls
+* 🔊 Volume control with smooth fades
+* 🖥️ Responsive layout (desktop-first, mobile-friendly)
+* 🌃 Optional animated background (stars / grid / VHS noise)
+
+---
+
+## 🧱 Tech Stack
+
+**Frontend**
+
+* HTML5
+* CSS3 (custom neon styling, animations)
+* JavaScript (vanilla)
+
+**Audio**
+
+* HTML5 `<audio>` element
+* Live stream or looping playlist (MP3 / AAC)
+
+**Optional / Extras**
+
+* Web Audio API (for visualizers or filters)
+* Canvas animations
+
+---
+
+## 📁 Project Structure
+
+```
+synthwave-radio/
+├── index.html
+├── style.css
+├── script.js
+├── assets/
+│   ├── audio/        # radio stream or tracks
+│   ├── images/       # backgrounds, overlays
+│   └── fonts/
+└── README.md
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/synthwave-radio.git
+cd synthwave-radio
+```
+
+### 2. Add your audio source
+
+In `script.js` or `index.html`, point the audio element to either:
+
+* A **live stream URL**, or
+* A local audio file in `assets/audio/`
+
+```html
+<audio id="radio" src="assets/audio/synthwave.mp3" loop></audio>
+```
+
+### 3. Open locally
+
+Just open `index.html` in your browser:
+
+```bash
+open index.html
+```
+
+No build step required.
+
+---
+
+## 🎛️ Controls
+
+* **Play / Pause** – Start or stop the radio
+* **Volume slider** – Smooth gain control
+* *(Optional)* Visualizer toggle
+
+---
+
+## 🎨 Customization
+
+You can easily tweak the vibe:
+
+* Change color palette in `style.css`
+* Swap background images or animations
+* Replace the stream with your own curated mix
+* Add CRT/VHS effects for extra nostalgia
+
+---
+
+## 🧠 Ideas for Extensions
+
+* Track metadata display (Now Playing)
+* Time‑based themes (night/day mode)
+* Visual audio spectrum
+* User‑selectable sub‑genres
+* Hosting as a public 24/7 radio site
+
+
+---
+
+## 📜 License
+
+MIT License — use it, remix it
+
+
+
+
 
 ## Backend
 - `python app.py` runs Flask API on port 5000
