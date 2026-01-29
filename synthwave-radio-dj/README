@@ -128,6 +128,7 @@ MIT License — use it, remix it
 sudo apt update
 sudo apt install -y python3-venv python3-pip
 if using ubuntu to establish virtual environment
+as well as .env file with gemini / eleven labs api keys
 
 ## Frontend
 - `python3 -m http.server 5500` runs frontend on localhost:5500
